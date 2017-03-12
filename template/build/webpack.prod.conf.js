@@ -4,14 +4,12 @@ var webpack = require('webpack')
 var config = require('../config')
 var merge = require('webpack-merge')
 var baseWebpackConfig = require('./webpack.base.conf')
-var CopyWebpackPlugin = require('copy-webpack-plugin')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
-var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
-
-var env = process.env.NODE_ENV === 'testing'
-  ? require('../config/test.env')
-  : config.build.env
+var HtmlStringReplace = require('html-string-replace-webpack-plugin')
+var CopyWebpackPlugin = require('copy-webpack-plugin')
+var ZipPlugin = require('zip-webpack-plugin')
+var env = config.build.env
 
 var webpackConfig = merge(baseWebpackConfig, {
   module: {
@@ -28,6 +26,16 @@ var webpackConfig = merge(baseWebpackConfig, {
   },
   plugins: [
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
+
+    // 复制 CubeModule.json
+    new CopyWebpackPlugin([
+      { from: path.join(__dirname, '../CubeModule.json'), to: path.join(__dirname, '../dist/CubeModule.json') },
+    ]),
+    // 设置全局变量
+    new webpack.ProvidePlugin({
+      '$envType': path.resolve(__dirname, '../config/prod.env.js'),
+      '$conf': path.resolve(__dirname, '../src/project-config.js')
+    }),
     new webpack.DefinePlugin({
       'process.env': env
     }),
@@ -41,16 +49,11 @@ var webpackConfig = merge(baseWebpackConfig, {
     new ExtractTextPlugin({
       filename: utils.assetsPath('css/[name].[contenthash].css')
     }),
-    // Compress extracted CSS. We are using this plugin so that possible
-    // duplicated CSS from different components can be deduped.
-    new OptimizeCSSPlugin(),
     // generate dist index.html with correct asset hash for caching.
     // you can customize output by editing /index.html
     // see https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
-      filename: process.env.NODE_ENV === 'testing'
-        ? 'index.html'
-        : config.build.index,
+      filename: config.build.index,
       template: 'index.html',
       inject: true,
       minify: {
@@ -83,14 +86,29 @@ var webpackConfig = merge(baseWebpackConfig, {
       name: 'manifest',
       chunks: ['vendor']
     }),
-    // copy custom static assets
-    new CopyWebpackPlugin([
-      {
-        from: path.resolve(__dirname, '../static'),
-        to: config.build.assetsSubDirectory,
-        ignore: ['.*']
-      }
-    ])
+    // 给静态文件替换时间戳
+    new HtmlStringReplace({
+      enable: true,
+      patterns: [
+        {
+          match: /src=\"([^\"]*)\"/g,
+          replacement: function (match, $1) {
+            if($1.indexOf('ver=') != -1) {
+              var ver = $1.substring(0, $1.indexOf("ver="));
+              console.log('src="' + ver + new Date().getTime() + '"');
+              return 'src="' + ver + new Date().getTime() + '"';
+            } else  {
+              return 'src="' +$1 + '"';
+            }
+          }
+        }
+      ]
+    }),
+    // 打压缩包
+    new ZipPlugin({
+      path: path.join(__dirname, '../'),
+      filename: config.build.zipName,
+    }),
   ]
 })
 

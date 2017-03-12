@@ -1,13 +1,48 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 var path = require('path')
+var pageInfo = require('../CubeModule.json');
+function checkTime(i) {
+  if (i < 10) {
+    i = "0" + i;
+  }
+  return i;
+}
+function getZipName(type) {
+  var d = new Date();
+  var year = d.getFullYear();
+  var month = checkTime(d.getMonth() + 1);
+  var day = checkTime(d.getDate());
+  var hour = checkTime(d.getHours());
+  var minute = checkTime(d.getMinutes());
+  var mode = type === 2  ? '-pro' : '-test';
+  var ver = type === 2 ? pageInfo.version : pageInfo.testVersion;
+  return pageInfo.name + '-' + ver + mode + '-' + year + month + day + hour + minute +'.zip';
+}
 
 module.exports = {
+  buildTest: {
+    zipName: getZipName(1),
+    env: require('./test.env'),
+    index: path.resolve(__dirname, '../dist/index.html'),
+    assetsRoot: path.resolve(__dirname, '../dist'),
+    assetsSubDirectory: 'static',
+    assetsPublicPath: './',
+    productionSourceMap: true,
+    // Gzip off by default as many popular static hosts such as
+    // Surge or Netlify already gzip all static assets for you.
+    // Before setting to `true`, make sure to:
+    // npm install --save-dev compression-webpack-plugin
+    productionGzip: false,
+    productionGzipExtensions: ['js', 'css'],
+    bundleAnalyzerReport: process.env.npm_config_report
+  },
   build: {
+    zipName: getZipName(2),
     env: require('./prod.env'),
     index: path.resolve(__dirname, '../dist/index.html'),
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: './',
     productionSourceMap: true,
     // Gzip off by default as many popular static hosts such as
     // Surge or Netlify already gzip all static assets for you.
@@ -24,7 +59,7 @@ module.exports = {
   dev: {
     env: require('./dev.env'),
     port: 8080,
-    autoOpenBrowser: true,
+    autoOpenBrowser: false,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {},

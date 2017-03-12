@@ -1,0 +1,18 @@
+{
+  "dependencies": {},
+  "hidden": false,
+  "autoDownload": true,
+  "relatesTo": [],
+  "dependsOn": [],
+  "dependsTo": [],
+  "releaseNote": "MSD",
+  "build": 1,
+  "name": "appName",
+  "identifier": "com.midea.msd.identifier",
+  "action": "",
+  "index": "index.html",
+  "isPcTest": 0,
+  "isDebug": 1,
+  "version": "1.0.0",
+  "testVersion": "1.0.0"
+}

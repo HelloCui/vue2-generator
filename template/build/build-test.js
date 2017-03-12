@@ -1,6 +1,7 @@
 // https://github.com/shelljs/shelljs
 require('./check-versions')()
-
+var jsonfile = require('jsonfile')
+var cubeModule =  require('../CubeModule.json')
 process.env.NODE_ENV = 'production'
 
 var ora = require('ora')
@@ -9,12 +10,21 @@ var chalk = require('chalk')
 var shell = require('shelljs')
 var webpack = require('webpack')
 var config = require('../config')
-var webpackConfig = require('./webpack.prod.conf')
+var webpackConfig = require('./webpack.test.conf')
 
-var spinner = ora('building for production...')
+var spinner = ora('building for test...')
+
+// 对调测试、正式版本号
+var swapVersion = function() {
+  var temp = cubeModule.version
+  cubeModule.version = cubeModule.testVersion
+  cubeModule.testVersion = temp
+  jsonfile.writeFileSync(path.join(__dirname, '../CubeModule.json'), cubeModule, {spaces: 2})
+}
+swapVersion()
 spinner.start()
 
-var assetsPath = path.join(config.build.assetsRoot, config.build.assetsSubDirectory)
+var assetsPath = path.join(config.buildTest.assetsRoot, config.buildTest.assetsSubDirectory)
 shell.rm('-rf', assetsPath)
 shell.mkdir('-p', assetsPath)
 shell.config.silent = true
@@ -32,7 +42,7 @@ webpack(webpackConfig, function (err, stats) {
     chunks: false,
     chunkModules: false
   }) + '\n\n')
-
+  swapVersion()
   console.log(chalk.cyan('  Build complete.\n'))
   console.log(chalk.yellow(
     '  Tip: built files are meant to be served over an HTTP server.\n' +
