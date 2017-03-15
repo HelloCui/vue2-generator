@@ -9,7 +9,7 @@
         :class="{'completed': item.completed}"
         v-for="item in todoList">
         <i class="todo-icon icon-complete" @click="updateTodo({url:item.url,completed:!item.completed})">✔</i>
-        <p class="todo-title">{{item.title}}</p>
+        <p class="todo-title">\{\{item.title\}\}</p>
         <i class="todo-icon icon-delete" @click="removeTodo(item.url)">✘</i>
       </div>
     </div>
