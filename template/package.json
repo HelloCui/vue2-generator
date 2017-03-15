@@ -1,8 +1,8 @@
 {
-  "name": "appName",
+  "name": "{{name}}",
   "version": "1.0.0",
-  "description": "App Description",
-  "author": "author <author@midea.com>",
+  "description": "{{description}}",
+  "author": "{{author}}",
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
