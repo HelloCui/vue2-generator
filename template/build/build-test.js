@@ -1,7 +1,9 @@
 // https://github.com/shelljs/shelljs
 require('./check-versions')()
 var jsonfile = require('jsonfile')
+{{#if_eq platform "midea"}}
 var cubeModule =  require('../CubeModule.json')
+{{/if_eq}}
 process.env.NODE_ENV = 'production'
 
 var ora = require('ora')
@@ -14,6 +16,7 @@ var webpackConfig = require('./webpack.test.conf')
 
 var spinner = ora('building for test...')
 
+{{#if_eq platform "midea"}}
 // 对调测试、正式版本号
 var swapVersion = function() {
   var temp = cubeModule.version
@@ -22,13 +25,14 @@ var swapVersion = function() {
   jsonfile.writeFileSync(path.join(__dirname, '../CubeModule.json'), cubeModule, {spaces: 2})
 }
 swapVersion()
+{{/if_eq}}
+
 spinner.start()
 
 var assetsPath = path.join(config.buildTest.assetsRoot, config.buildTest.assetsSubDirectory)
 shell.rm('-rf', assetsPath)
 shell.mkdir('-p', assetsPath)
 shell.config.silent = true
-//cp('-R', 'CubeModule.json', config.build.assetsRoot)
 shell.cp('-R', 'static/*', assetsPath)
 shell.config.silent = false
 
@@ -42,7 +46,9 @@ webpack(webpackConfig, function (err, stats) {
     chunks: false,
     chunkModules: false
   }) + '\n\n')
+  {{#if_eq platform "midea"}}
   swapVersion()
+  {{/if_eq}}
   console.log(chalk.cyan('  Build complete.\n'))
   console.log(chalk.yellow(
     '  Tip: built files are meant to be served over an HTTP server.\n' +

@@ -18,7 +18,6 @@ var assetsPath = path.join(config.build.assetsRoot, config.build.assetsSubDirect
 shell.rm('-rf', assetsPath)
 shell.mkdir('-p', assetsPath)
 shell.config.silent = true
-//cp('-R', 'CubeModule.json', config.build.assetsRoot)
 shell.cp('-R', 'static/*', assetsPath)
 shell.config.silent = false
 

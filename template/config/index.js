@@ -1,12 +1,17 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 var path = require('path')
+{{#if_eq platform "midea"}}
 var pageInfo = require('../CubeModule.json');
+{{/if_eq}}
+
 function checkTime(i) {
   if (i < 10) {
     i = "0" + i;
   }
   return i;
 }
+
+{{#if_eq platform "midea"}}
 function getZipName(type) {
   var d = new Date();
   var year = d.getFullYear();
@@ -18,10 +23,13 @@ function getZipName(type) {
   var ver = type === 2 ? pageInfo.version : pageInfo.testVersion;
   return pageInfo.name + '-' + ver + mode + '-' + year + month + day + hour + minute +'.zip';
 }
+{{/if_eq}}
 
 module.exports = {
   buildTest: {
+    {{#if_eq platform "midea"}}
     zipName: getZipName(1),
+    {{/if_eq}}
     env: require('./test.env'),
     index: path.resolve(__dirname, '../dist/index.html'),
     assetsRoot: path.resolve(__dirname, '../dist'),
@@ -37,7 +45,9 @@ module.exports = {
     bundleAnalyzerReport: process.env.npm_config_report
   },
   build: {
+    {{#if_eq platform "midea"}}
     zipName: getZipName(2),
+    {{/if_eq}}
     env: require('./prod.env'),
     index: path.resolve(__dirname, '../dist/index.html'),
     assetsRoot: path.resolve(__dirname, '../dist'),

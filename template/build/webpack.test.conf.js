@@ -27,11 +27,12 @@ var webpackConfig = merge(baseWebpackConfig, {
   plugins: [
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
 
+    {{#if_eq platform "midea"}}
     // 复制 CubeModule.json
     new CopyWebpackPlugin([
       { from: path.join(__dirname, '../CubeModule.json'), to: path.join(__dirname, '../dist/CubeModule.json') },
     ]),
-    // 设置全局变量
+    {{/if_eq}}
     new webpack.ProvidePlugin({
       '$envType': path.resolve(__dirname, '../config/test.env.js'),
       '$conf': path.resolve(__dirname, '../src/project-config.js')
@@ -104,11 +105,13 @@ var webpackConfig = merge(baseWebpackConfig, {
         }
       ]
     }),
+    {{#if_eq platform "midea"}},
     // 打压缩包
     new ZipPlugin({
       path: path.join(__dirname, '../'),
-      filename: config.buildTest.zipName,
-    }),
+      filename: config.build.zipName,
+    })
+    {{/if_eq}}
   ]
 })
 
