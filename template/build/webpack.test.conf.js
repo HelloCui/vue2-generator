@@ -108,7 +108,7 @@ var webpackConfig = merge(baseWebpackConfig, {
     // 打压缩包
     new ZipPlugin({
       path: path.join(__dirname, '../'),
-      filename: config.build.zipName,
+      filename: config.buildTest.zipName,
     })
     {{/if_eq}}
   ]
