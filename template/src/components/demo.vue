@@ -5,7 +5,7 @@
       placeholder="输入后回车"
       @keyup.enter="addTodoItem({title:newTodo,order:1,completed:false})">
     <div class="todo-list">
-      <div class="todo-box"
+      <div class="todo-box bd-top"
         :class="{'completed': item.completed}"
         v-for="item in todoList">
         <i class="todo-icon icon-complete" @click="updateTodo({url:item.url,completed:!item.completed})">✔</i>
@@ -51,8 +51,7 @@ export default {
 }
 </script>
 
-<style lang="less" scoped>
-  // TODO: 样式放在这里只是为了减少demo的代码污染，请勿效仿
+<style lang="less">
   .demo {
     * {
       outline: none;
@@ -76,11 +75,12 @@ export default {
       width: 100%;
       height: @height;
       line-height: @height;
-      border-top: dotted 1px #ccc;
+      border-color: #ccc;
+      border-top-style: dotted;
       background-color: white;
       .todo-icon {
         position: absolute;
-        top: 0
+        top: 0;
       }
       .icon-complete {
         left: 10px;
@@ -91,7 +91,7 @@ export default {
         color: #f74c31
       }
       &:first-child {
-        border-top: dotted 1px #888;
+        border-color: #888;
       }
       &.completed {
         .todo-title {

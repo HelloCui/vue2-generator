@@ -34,6 +34,23 @@ ajax.interceptors.response.use(function (response) {
   return Promise.reject(error);
 });
 
+// 判断是否支持0.5px
+let body = document.querySelector('body')
+if (window.devicePixelRatio && devicePixelRatio >= 2) {
+    let testElem = document.createElement('div')
+
+    testElem.style.border = '.5px solid transparent';
+    body.appendChild(testElem);
+    if (testElem.offsetHeight >= 1){
+        body.classList.add('half-border');
+    } else {
+        body.classList.add('full-border');
+    }
+    document.body.removeChild(testElem);
+} else {
+    body.classList.add('full-border');
+}
+
 new Vue({
   router,
   store,
