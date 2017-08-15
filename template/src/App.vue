@@ -16,7 +16,9 @@ export default {
 {{#if_eq vux true}}
 @import '~vux/src/styles/reset.less';
 {{/if_eq}}
-
+{{#if_eq vux false}}
+@import '~assets/style/reset.less';
+{{/if_eq}}
 body {
   background-color: #f4f4f4;
 }
