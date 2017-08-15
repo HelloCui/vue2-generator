@@ -3,28 +3,19 @@
     <keep-alive>
       <router-view></router-view>
     </keep-alive>
-    <loading v-model="isLoading"></loading>
   </div>
 </template>
 
 <script>
-import { Loading } from 'vux'
-import { mapState } from 'vuex'
 export default {
-  name: 'app',
-  components: {
-    Loading
-  },
-  computed: {
-    ...mapState({
-      isLoading: state => state.vux.isLoading
-    })
-  }
+  name: 'app'
 }
 </script>
 
 <style lang="less">
+{{#if_eq vux true}}
 @import '~vux/src/styles/reset.less';
+{{/if_eq}}
 
 body {
   background-color: #f4f4f4;

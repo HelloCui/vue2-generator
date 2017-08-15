@@ -23,15 +23,12 @@ FastClick.attach(document.body);
 
 // 请求发送拦截器
 ajax.interceptors.request.use(function (config) {
-  // 显示 Loading
-  store.commit('updateLoadingStatus', {isLoading: true});
   return config;
 }, function (error) {
   return Promise.reject(error);
 });
 // 隐藏 Loading
 ajax.interceptors.response.use(function (response) {
-  store.commit('updateLoadingStatus', {isLoading: false});
   return response;
 }, function (error) {
   return Promise.reject(error);

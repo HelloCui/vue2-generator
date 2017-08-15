@@ -2,7 +2,9 @@ var path = require('path')
 var utils = require('./utils')
 
 var projectRoot = path.resolve(__dirname, '../')
+{{#if_eq vux true}}
 const vuxLoader = require('vux-loader')
+{{/if_eq}}
 
 var config = require('../config')
 var vueLoaderConfig = require('./vue-loader.conf')
@@ -68,7 +70,7 @@ let webpackConfig = {
   }
 }
 
-
+{{#if_eq vux true}}
 module.exports = vuxLoader.merge(webpackConfig, {
   plugins: [
     {
@@ -79,3 +81,7 @@ module.exports = vuxLoader.merge(webpackConfig, {
     }
   ]
 })
+{{/if_eq}}
+{{#if_eq vux false}}
+module.exports = webpackConfig
+{{/if_eq}}

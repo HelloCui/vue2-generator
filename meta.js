@@ -37,12 +37,16 @@ module.exports = {
       "required": false,
       "message": "Project identifier",
       "default": "com.midea.msd.identifier"
+    },
+    "vux": {
+      "type": "confirm",
+      "message": "是否使用vux?"
     }
   },
   "filters": {
     "CubeModule.json": "platform == 'midea'",
     "src/platform/**/*": "platform == 'midea'"
   },
-  "skipInterpolation": "src/**/*.vue",
+  "skipInterpolation": "src/**/!(App).vue",
   "completeMessage": "To get started:\n\n  {{^inPlace}}cd {{destDirName}}\n  {{/inPlace}}npm install\n  npm run dev"
 };
