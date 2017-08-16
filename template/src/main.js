@@ -6,14 +6,9 @@ import VueRouter from 'vue-router'
 import App from './App'
 import store from './store'
 import ajax from './store/ajax'
+import routes from './router'
 
 Vue.use(VueRouter)
-
-const routes = [{
-    // TODO  该路由仅用于示例，与项目无关，请自行删除
-    path: '/',
-    component: require('./components/demo')
-  }]
 
 const router = new VueRouter({
   routes
@@ -21,18 +16,22 @@ const router = new VueRouter({
 
 FastClick.attach(document.body);
 
-// 请求发送拦截器
-ajax.interceptors.request.use(function (config) {
-  return config;
-}, function (error) {
-  return Promise.reject(error);
-});
-// 隐藏 Loading
-ajax.interceptors.response.use(function (response) {
-  return response;
-}, function (error) {
-  return Promise.reject(error);
-});
+// 为了能够正确执行转场动画，跳转页面的方法需要做一层包装
+VueRouter.prototype.$go = function(noAnimate) {
+    this.noAnimate = noAnimate || false;
+    this.goTo = false;
+    this.go(-1);
+};
+VueRouter.prototype.$push = function(location, noAnimate, onComplete, onAbort) {
+    this.noAnimate = noAnimate || false;
+    this.goTo = true;
+    this.push(location, onComplete, onAbort);
+};
+VueRouter.prototype.$replace = function(location, noAnimate, onComplete, onAbort) {
+    this.noAnimate = noAnimate || false;
+    this.goTo = true;
+    this.replace(location, onComplete, onAbort);
+};
 
 // 判断是否支持0.5px
 let body = document.querySelector('body')

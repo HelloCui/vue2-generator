@@ -20,7 +20,7 @@
 import {mapState, mapActions} from 'vuex'
 
 export default {
-  name: 'hello',
+  name: 'demo',
   data () {
     return {
       newTodo: ''
@@ -31,7 +31,7 @@ export default {
       todoList: state => state.demo.todoList
     })
   },
-  activated() {
+  mounted() {
     this.getTodoList();
   },
   methods: {

@@ -17,7 +17,7 @@ const actions ={
     return ajax.get('', {
       baseURL: demoUrl
     }).then((rep) => {
-      commit('setTodoList', rep.data);
+      commit('setTodoList', rep);
     }).catch(rep => {
       console.log('服务器请求失败~');
     })
