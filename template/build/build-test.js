@@ -1,9 +1,5 @@
 // https://github.com/shelljs/shelljs
 require('./check-versions')()
-var jsonfile = require('jsonfile')
-{{#if_eq platform "midea"}}
-var cubeModule =  require('../CubeModule.json')
-{{/if_eq}}
 process.env.NODE_ENV = 'production'
 
 var ora = require('ora')
@@ -19,12 +15,19 @@ var spinner = ora('building for test...')
 {{#if_eq platform "midea"}}
 // 对调测试、正式版本号
 var swapVersion = function() {
-  var temp = cubeModule.version
-  cubeModule.version = cubeModule.testVersion
-  cubeModule.testVersion = temp
-  jsonfile.writeFileSync(path.join(__dirname, '../CubeModule.json'), cubeModule, {spaces: 2})
+  var cubeModulePath = path.join(config.buildTest.assetsRoot, '/CubeModule.json'),
+      cubeModule = require(cubeModulePath),
+      jsonfile = require('jsonfile')
+  var temp = {
+      version: cubeModule.version,
+      build: cubeModule.build
+  }
+  for(var p in temp) {
+      cubeModule[p] = cubeModule['test' + p[0].toUpperCase() + p.slice(1)]
+      cubeModule['test' + p[0].toUpperCase() + p.slice(1)] = temp[p]
+  }
+  jsonfile.writeFileSync(cubeModulePath, cubeModule, {spaces: 2})
 }
-swapVersion()
 {{/if_eq}}
 
 spinner.start()

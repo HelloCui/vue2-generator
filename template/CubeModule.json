@@ -8,11 +8,12 @@
   "relatesTo": [],
   "dependsOn": [],
   "dependsTo": [],
-  "build": 1,
   "action": "",
   "index": "index.html",
   "isPcTest": 0,
   "isDebug": 1,
+  "build": 1,
   "version": "1.0.0",
+  "testBuild": 1,
   "testVersion": "1.0.0"
 }
