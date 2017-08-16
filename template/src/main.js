@@ -11,7 +11,7 @@ import routes from './router'
 Vue.use(VueRouter)
 
 const router = new VueRouter({
-  routes
+    routes
 })
 
 FastClick.attach(document.body);
@@ -40,7 +40,7 @@ if (window.devicePixelRatio && devicePixelRatio >= 2) {
 
     testElem.style.border = '.5px solid transparent';
     body.appendChild(testElem);
-    if (testElem.offsetHeight >= 1){
+    if (testElem.offsetHeight >= 1) {
         body.classList.add('half-border');
     } else {
         body.classList.add('full-border');
@@ -51,7 +51,7 @@ if (window.devicePixelRatio && devicePixelRatio >= 2) {
 }
 
 new Vue({
-  router,
-  store,
-  render: h => h(App)
+    router,
+    store,
+    render: h => h(App)
 }).$mount('#app');

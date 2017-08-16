@@ -1,4 +1,4 @@
 module.exports = {
-  NODE_ENV: '"production"',
-  type: 2
+    NODE_ENV: '"production"',
+    type: 2
 }

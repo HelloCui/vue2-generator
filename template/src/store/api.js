@@ -1,9 +1,7 @@
-/**
- * Created by 34279 on 2017/2/22.
- */
 const api = {
+    // getUserBaseInfo: 'homepage/getUserBaseInfo',            // TODO 只用于示例，请删除
 };
 
 module.exports = {
-  api
+    api
 };

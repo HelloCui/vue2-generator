@@ -1,12 +1,12 @@
 import Promise from 'promise';
-
 const _MIDEA_COMMON = 'MideaCommon',
-      _MIDEA_USER = 'MideaUser',
-      _MIDEA_BARCODE = 'MideaBarcode',
-      _MIDEA_MAP = 'MideaMap',
-      _MIDEA_ANNTO = 'MideaAnnto',
-      _MIDEA_SALE = 'MideaSale',
-      _MIDEA_PDF = "MideaPdf";
+    _MIDEA_USER = 'MideaUser',
+    _MIDEA_BARCODE = 'MideaBarcode',
+    _MIDEA_MAP = 'MideaMap',
+    _MIDEA_ANNTO = 'MideaAnnto',
+    _MIDEA_SALE = 'MideaSale',
+    _MIDEA_PDF = 'MideaPdf',
+    _MIDEA_FINANCE = 'MideaFinancePlugin'
 
 /**
  * @alias widgetFactory
@@ -22,7 +22,7 @@ var functions = {
      * @return {promise}
      */
     callApi: function(name, method, params) {
-        return new Promise(function(resolve, reject){
+        return new Promise(function(resolve, reject) {
             if (window.cordova) {
                 try {
                     window.cordova.exec(function(msg) {
@@ -241,7 +241,8 @@ var functions = {
             navigator.service.contacts.find(fields,
                 function(msg) {
                     defer.resolve(msg);
-                }, function(msg) {
+                },
+                function(msg) {
                     defer.reject(msg);
                 }, options);
         } catch (e) {
@@ -416,6 +417,14 @@ var functions = {
         return functions.callApi(_MIDEA_COMMON, 'showAppView', ['messageView']);
     },
     /**
+     * 锁死 bounce
+     * @param 0:锁死，1：不锁死
+     * @returns {*}
+     */
+    setBounces: function(params) {
+        return functions.callApi(_MIDEA_COMMON, 'setBounces', [params]);
+    },
+    /**
      * 打开美的通导购的意见反馈
      * @return {*|promise}
      */
@@ -428,7 +437,7 @@ var functions = {
      * @return {*|promise}
      */
     getBase64CodeFromPictures: function(pictureList) {
-        return functions.callApi(_MIDEA_COMMON , 'getBase64s', pictureList);
+        return functions.callApi(_MIDEA_COMMON, 'getBase64s', pictureList);
     },
     /**
      * 跳转到系统设置页面，
@@ -436,23 +445,23 @@ var functions = {
      * @returns {*}
      */
     gotoSystemSetting: function(arr) {
-        return functions.callApi(_MIDEA_COMMON , 'gotoSystemSetting', arr);
+        return functions.callApi(_MIDEA_COMMON, 'gotoSystemSetting', arr);
     },
     /**
      * 附件展示
      * @param param {array} 附件链接url列表
      * @return {Promise}
      */
-    showPdf: function (param) {
-        return functions.callApi(_MIDEA_PDF, 'showPdf',param);
+    showPdf: function(param) {
+        return functions.callApi(_MIDEA_PDF, 'showPdf', param);
     },
     /**
      * 附件txt展示
      * @param param {array} 参数
      * @return {Promise}
      */
-    showTxt: function (param) {
-        return functions.callApi(_MIDEA_PDF, 'showTxt',param);
+    showTxt: function(param) {
+        return functions.callApi(_MIDEA_PDF, 'showTxt', param);
     },
     /**
      * @description c4a对称加密
@@ -460,7 +469,7 @@ var functions = {
      * @returns {Promise}
      */
     financeAesEncrypt: function(params) {
-        return functions.callApi('MideaFinancePlugin', 'AESEncrypt', [params]);
+        return functions.callApi(_MIDEA_FINANCE, 'AESEncrypt', [params]);
     },
     /**
      * @description c4a对称解密
@@ -468,7 +477,7 @@ var functions = {
      * @returns {Promise}
      */
     financeAesDecrypt: function(params) {
-        return functions.callApi('MideaFinancePlugin', 'AESDecrypt', [params]);
+        return functions.callApi(_MIDEA_FINANCE, 'AESDecrypt', [params]);
     },
     /**
      * @description c4a非对称加密
@@ -476,7 +485,7 @@ var functions = {
      * @returns {Promise}
      */
     financeRsaEncrypt: function(params) {
-        return functions.callApi('MideaFinancePlugin', 'RSAEncrypt', [params]);
+        return functions.callApi(_MIDEA_FINANCE, 'RSAEncrypt', [params]);
     },
     /**
      * @description c4a非对称解密
@@ -484,7 +493,7 @@ var functions = {
      * @returns {Promise}
      */
     financeRsaDecrypt: function(params) {
-        return functions.callApi('MideaFinancePlugin', 'RSADecrypt', [params]);
+        return functions.callApi(_MIDEA_FINANCE, 'RSADecrypt', [params]);
     },
     /**
      * @description 返回c4a获取密钥的url
@@ -492,7 +501,7 @@ var functions = {
      * @returns {Promise}
      */
     financeSecurityKey: function(params) {
-        return functions.callApi('MideaFinancePlugin', 'getSecurityKeyUrl', [params]);
+        return functions.callApi(_MIDEA_FINANCE, 'getSecurityKeyUrl', [params]);
     },
     /**
      * @description 获取底座密码
@@ -508,7 +517,7 @@ var functions = {
      * @returns {Promise}
      */
     financeSaveJson: function(key, value) {
-        return functions.callApi('MideaFinancePlugin', 'saveJson', [key, value]);
+        return functions.callApi(_MIDEA_FINANCE, 'saveJson', [key, value]);
     },
     /**
      * @description 美的金融读取json
@@ -516,7 +525,7 @@ var functions = {
      * @returns {Promise}
      */
     financeGetJson: function(key) {
-        return functions.callApi('MideaFinancePlugin', 'getJson', [key]);
+        return functions.callApi(_MIDEA_FINANCE, 'getJson', [key]);
     },
     /**
      * @description 打电话（底座有bug）
@@ -532,7 +541,7 @@ var functions = {
      * @returns {Promise}
      */
     financeGetVersionInfo: function(params) {
-        return functions.callApi('MideaFinancePlugin', 'getVersionInfo', [params]);
+        return functions.callApi(_MIDEA_FINANCE, 'getVersionInfo', [params]);
     },
     /**
      * @description 更新美的金融底座版本
@@ -540,7 +549,7 @@ var functions = {
      * @returns {Promise}
      */
     financeUpdateApp: function(params) {
-        return functions.callApi('MideaFinancePlugin', 'updateApp', [params]);
+        return functions.callApi(_MIDEA_FINANCE, 'updateApp', [params]);
     }
 };
 
