@@ -37,7 +37,7 @@ var webpackConfig = merge(baseWebpackConfig, {
         // 设置全局变量
         new webpack.ProvidePlugin({
             '$envType': path.resolve(__dirname, '../config/prod.env.js'),
-            '$conf': path.resolve(__dirname, '../src/project-config.js')
+            '$conf': path.resolve(__dirname, '../src/projectConfig.js')
         }),
         new webpack.DefinePlugin({
             'process.env': env

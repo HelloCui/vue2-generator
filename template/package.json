@@ -5,9 +5,9 @@
     "author": "{{author}}",
     "private": true,
     "scripts": {
-        "dev": "node build/dev-server.js",
+        "dev": "node build/devServer.js",
         "build": "node build/build.js",
-        "buildTest": "node build/build-test.js"
+        "buildTest": "node build/buildTest.js"
     },
     "dependencies": {
         "axios": "^0.15.3",

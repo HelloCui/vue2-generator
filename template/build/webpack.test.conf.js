@@ -49,7 +49,7 @@ var webpackConfig = merge(baseWebpackConfig, {
         {{/if_eq}}
         new webpack.ProvidePlugin({
             '$envType': path.resolve(__dirname, '../config/test.env.js'),
-            '$conf': path.resolve(__dirname, '../src/project-config.js')
+            '$conf': path.resolve(__dirname, '../src/projectConfig.js')
         }),
         new webpack.DefinePlugin({
             'process.env': env

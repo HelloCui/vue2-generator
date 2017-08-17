@@ -7,7 +7,7 @@ const vuxLoader = require('vux-loader')
 {{/if_eq}}
 
 var config = require('../config')
-var vueLoaderConfig = require('./vue-loader.conf')
+var vueLoaderConfig = require('./vueLoader.conf')
 var webpack = require("webpack")
 
 function resolve(dir) {

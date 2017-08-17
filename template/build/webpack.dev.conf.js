@@ -9,7 +9,7 @@ var FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 
 // add hot-reload related code to entry chunks
 Object.keys(baseWebpackConfig.entry).forEach(function(name) {
-    baseWebpackConfig.entry[name] = ['./build/dev-client'].concat(baseWebpackConfig.entry[name])
+    baseWebpackConfig.entry[name] = ['./build/devClient'].concat(baseWebpackConfig.entry[name])
 })
 
 module.exports = merge(baseWebpackConfig, {
@@ -24,7 +24,7 @@ module.exports = merge(baseWebpackConfig, {
         // 设置全局变量
         new webpack.ProvidePlugin({
             '$envType': path.resolve(__dirname, '../config/dev.env.js'),
-            '$conf': path.resolve(__dirname, '../src/project-config.js')
+            '$conf': path.resolve(__dirname, '../src/projectConfig.js')
         }),
         new webpack.DefinePlugin({
             'process.env': config.dev.env
