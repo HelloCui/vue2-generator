@@ -31,7 +31,20 @@ var webpackConfig = merge(baseWebpackConfig, {
         // 复制 CubeModule.json
         new CopyWebpackPlugin([{
             from: path.join(__dirname, '../CubeModule.json'),
-            to: path.join(__dirname, '../dist/CubeModule.json')
+            to: path.join(__dirname, '../dist/CubeModule.json'),
+            transform: function(content, path) {
+                // 对调版本号
+                let cubeModule = JSON.parse(content)
+                var temp = {
+                    version: cubeModule.version,
+                    build: cubeModule.build
+                }
+                for (var p in temp) {
+                    cubeModule[p] = cubeModule['test' + p[0].toUpperCase() + p.slice(1)]
+                    cubeModule['test' + p[0].toUpperCase() + p.slice(1)] = temp[p]
+                }
+                return new Buffer(JSON.stringify(cubeModule))
+            }
         }]),
         {{/if_eq}}
         new webpack.ProvidePlugin({

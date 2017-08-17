@@ -12,26 +12,6 @@ var webpackConfig = require('./webpack.test.conf')
 
 var spinner = ora('building for test...')
 
-{{#if_eq platform "midea"}}
-// 对调测试、正式版本号
-var swapVersion = function() {
-    var cubeModulePath = path.join(config.buildTest.assetsRoot, '/CubeModule.json'),
-        cubeModule = require(cubeModulePath),
-        jsonfile = require('jsonfile')
-    var temp = {
-        version: cubeModule.version,
-        build: cubeModule.build
-    }
-    for (var p in temp) {
-        cubeModule[p] = cubeModule['test' + p[0].toUpperCase() + p.slice(1)]
-        cubeModule['test' + p[0].toUpperCase() + p.slice(1)] = temp[p]
-    }
-    jsonfile.writeFileSync(cubeModulePath, cubeModule, {
-        spaces: 2
-    })
-}
-{{/if_eq}}
-
 spinner.start()
 
 var assetsPath = path.join(config.buildTest.assetsRoot, config.buildTest.assetsSubDirectory)
@@ -51,9 +31,6 @@ webpack(webpackConfig, function(err, stats) {
         chunks: false,
         chunkModules: false
     }) + '\n\n')
-    {{#if_eq platform "midea"}}
-    swapVersion()
-    {{/if_eq}}
     console.log(chalk.cyan('  Build complete.\n'))
     console.log(chalk.yellow(
         '  Tip: built files are meant to be served over an HTTP server.\n' +
