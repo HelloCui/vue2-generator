@@ -34,7 +34,7 @@ var webpackConfig = merge(baseWebpackConfig, {
             to: path.join(__dirname, '../dist/CubeModule.json'),
             transform: function(content, path) {
                 // 对调版本号
-                let cubeModule = JSON.parse(content)
+                var cubeModule = JSON.parse(content)
                 var temp = {
                     version: cubeModule.version,
                     build: cubeModule.build
