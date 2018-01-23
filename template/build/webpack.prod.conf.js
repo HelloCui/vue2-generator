@@ -27,7 +27,7 @@ var webpackConfig = merge(baseWebpackConfig, {
     plugins: [
         // http://vuejs.github.io/vue-loader/en/workflow/production.html
 
-        {{#if_eq platform "midea"}}
+        {{#if_eq platform "cordova"}}
         // 复制 CubeModule.json
         new CopyWebpackPlugin([{
             from: path.join(__dirname, '../CubeModule.json'),
@@ -105,7 +105,7 @@ var webpackConfig = merge(baseWebpackConfig, {
                 }
             }]
         })
-        {{#if_eq platform "midea"}},
+        {{#if_eq platform "cordova"}},
         // 打压缩包
         new ZipPlugin({
             path: path.join(__dirname, '../'),

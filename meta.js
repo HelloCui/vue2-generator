@@ -1,52 +1,50 @@
 module.exports = {
-  "prompts": {
-    "name": {
-      "type": "string",
-      "required": true,
-      "message": "Project name"
-    },
-    "description": {
-      "type": "string",
-      "required": false,
-      "message": "Project description",
-      "default": "A Vue.js project"
-    },
-    "author": {
-      "type": "string",
-      "message": "Author"
-    },
-    "platform": {
-      "type": "list",
-      "message": "Platform",
-      "choices": [
-        {
-          "name": "美的底座",
-          "value": "midea",
-          "short": "midea"
+    "prompts": {
+        "name": {
+            "type": "string",
+            "required": true,
+            "message": "Project name"
         },
-        {
-          "name": "微信",
-          "value": "wechat",
-          "short": "wechat"
+        "description": {
+            "type": "string",
+            "required": false,
+            "message": "Project description",
+            "default": "A Vue.js project"
+        },
+        "author": {
+            "type": "string",
+            "message": "Author"
+        },
+        "platform": {
+            "type": "list",
+            "message": "Platform",
+            "choices": [{
+                    "name": "cordova",
+                    "value": "cordova",
+                    "short": "cordova"
+                },
+                {
+                    "name": "微信",
+                    "value": "wechat",
+                    "short": "wechat"
+                }
+            ]
+        },
+        "identifier": {
+            "when": "platform == 'cordova'",
+            "type": "string",
+            "required": false,
+            "message": "Project identifier",
+            "default": ""
+        },
+        "vux": {
+            "type": "confirm",
+            "message": "是否使用vux?"
         }
-      ]
     },
-    "identifier": {
-      "when": "platform == 'midea'",
-      "type": "string",
-      "required": false,
-      "message": "Project identifier",
-      "default": "com.midea.msd.identifier"
+    "filters": {
+        "CubeModule.json": "platform == 'cordova'"
     },
-    "vux": {
-      "type": "confirm",
-      "message": "是否使用vux?"
-    }
-  },
-  "filters": {
-    "CubeModule.json": "platform == 'midea'",
-    "src/platform/**/*": "platform == 'midea'"
-  },
-  "skipInterpolation": "src/**/!(App).vue",
-  "completeMessage": "To get started:\n\n  {{^inPlace}}cd {{destDirName}}\n  {{/inPlace}}npm install\n  npm run dev"
+    "skipInterpolation": "src/**/!(App).vue",
+    "completeMessage": "To get started:\n\n  {{^inPlace}}cd {{destDirName}}\n  {{/inPlace}}npm install\n  npm run dev"
 };

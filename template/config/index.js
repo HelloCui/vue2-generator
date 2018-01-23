@@ -1,6 +1,6 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 var path = require('path')
-{{#if_eq platform "midea"}}
+{{#if_eq platform "cordova"}}
 var pageInfo = require('../CubeModule.json');
 {{/if_eq}}
 
@@ -11,7 +11,7 @@ function checkTime(i) {
     return i;
 }
 
-{{#if_eq platform "midea"}}
+{{#if_eq platform "cordova"}}
 function getZipName(type) {
     var d = new Date();
     var year = d.getFullYear();
@@ -27,7 +27,7 @@ function getZipName(type) {
 
 module.exports = {
     buildTest: {
-        {{#if_eq platform "midea"}}
+        {{#if_eq platform "cordova"}}
         zipName: getZipName(1),
         {{/if_eq}}
         env: require('./test.env'),
@@ -45,7 +45,7 @@ module.exports = {
         bundleAnalyzerReport: process.env.npm_config_report
     },
     build: {
-        {{#if_eq platform "midea"}}
+        {{#if_eq platform "cordova"}}
         zipName: getZipName(2),
         {{/if_eq}}
         env: require('./prod.env'),

@@ -1,7 +1,7 @@
 {
     "name": "{{name}}",
     "dependencies": "{{description}}",
-    "identifier": "com.midea.msd.identifier",
+    "identifier": "",
     "releaseNote": "MSD",
     "hidden": false,
     "autoDownload": true,
