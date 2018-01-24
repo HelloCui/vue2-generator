@@ -5,13 +5,6 @@ import App from './App'
 import router from './router'
 import demoBlock from './components/demo-block.vue'
 import installComponents from './installComponents'
-import {
-    Toast,
-    hideToast
-} from '$component/toast/toast.js';
-
-// import 'github-markdown-css/github-markdown.css';
-// import 'highlight.js/styles/github.css';
 
 var highlight = require('highlight.js/lib')
 highlight.initHighlightingOnLoad()
