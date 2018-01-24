@@ -51,6 +51,6 @@ module.exports = {
         "build/webpack.doc.conf.js": "doc == true",
         "docs": "doc == true"
     },
-    "skipInterpolation": "src/**/!(App).vue",
+    "skipInterpolation": ["src/**/!(App).vue", "doc/**/*"],
     "completeMessage": "To get started:\n\n  {{^inPlace}}cd {{destDirName}}\n  {{/inPlace}}npm install\n  npm run dev"
 };
