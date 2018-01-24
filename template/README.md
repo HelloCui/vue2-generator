@@ -5,6 +5,10 @@
 ## Build Setup
 
 ``` bash
+{{#if_eq platform 'cordova'}}
+h5-res-platform 依赖包需要切换私服安装
+{{/if_eq}}
+
 # install dependencies
 npm install
 
@@ -30,4 +34,3 @@ npm run doc
 1. 如果你使用vux，请用npm安装依赖包。若用cnpm安装，在使用vux的部分组件时，会发生_vm.$t is not a function的错误
 2. 不要在同一个模块里面混用ES6(import和export)和CommonJS(require和module.exports)，
 webpack(2.2.0+)下会发生错误Cannot assign to read only property 'exports' of object '#<Object>'
-3. 因为某种不可抗力，platform 已经移除，请自行引入

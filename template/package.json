@@ -17,6 +17,9 @@
         "fastclick": "^1.0.6",
         "vue": "^2.5.13",
         "vue-router": "^3.0.1",
+        {{#if_eq platform 'cordova'}}
+        "h5-res-platform": "^1.0.3",
+        {{/if_eq}}
         {{#if_eq vux true}}
         "vux": "^2.5.7",
         {{/if_eq}}
