@@ -1,6 +1,6 @@
 {
     "presets": [
-        "evn",
+        "env",
         "stage-2"
     ],
     "plugins": ["transform-runtime"],
