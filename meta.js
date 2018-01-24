@@ -40,10 +40,16 @@ module.exports = {
         "vux": {
             "type": "confirm",
             "message": "是否使用vux?"
+        },
+        "doc": {
+            "type": "confirm",
+            "message": "是否需要文档"
         }
     },
     "filters": {
-        "CubeModule.json": "platform == 'cordova'"
+        "CubeModule.json": "platform == 'cordova'",
+        "build/webpack.doc.conf.js": "doc == true",
+        "docs": "doc == true"
     },
     "skipInterpolation": "src/**/!(App).vue",
     "completeMessage": "To get started:\n\n  {{^inPlace}}cd {{destDirName}}\n  {{/inPlace}}npm install\n  npm run dev"
