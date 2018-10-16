@@ -18,7 +18,7 @@ var webpackConfig = merge(baseWebpackConfig, {
             extract: true
         })
     },
-    devtool: config.buildTest.productionSourceMap ? '#source-map' : false,
+    devtool: config.buildTest.productionSourceMap ? '#cheap-module-eval-source-map' : false,
     output: {
         path: config.buildTest.assetsRoot,
         filename: utils.assetsPath('js/[name].[chunkhash].js'),
